@@ -7,11 +7,12 @@ import random
 NUM_OUTPUT_SAMPLES = 10000
 
 IMAGE_SIZE = (300, 300)
-CLOTH_SIZE = (250, 150)
-CLOTH_TL = (25, 75)
+CLOTH_SIZE = (250, 150) # Before scaling is applied (transformations are optional).
+CLOTH_TL = (25, 75) # TL is `top left corner` before scaling/rotation is applied (transformations are optional).
 
-RANDOM_SCALE_MAX = 0.25 # Shrinking variation. Set to 0 for False
-RANDOM_ROTATE = True
+RANDOM_ROTATE = True # [True/False] Rotation, with True applies random 0-360 degrees.
+RANDOM_SCALE_MAX = 0.25 # [percent] Scaling, reducing random variation (does not apply expansion because it could go outside the image). Set to 0 for False
+RANDOM_MOVE_MAX = 15 # [pixels] on each side, e.g. 15 will move -15 to 15. Set to 0 for False
 
 labels_file = open("labels.txt", "w") # or "a" to append
 
@@ -20,6 +21,12 @@ def scale(origin, point, scale):
     px, py = point
     qx = ox + (px - ox) * scale
     qy = oy + (py - oy) * scale
+    return qx, qy
+
+def move(origin, value):
+    ox, oy = origin
+    qx = ox + value
+    qy = oy + value
     return qx, qy
 
 def rotate(origin, point, angle):
@@ -49,7 +56,7 @@ def reflect(p1, p2, pin):
     coeff = dotp / dot12
     lx = p1[0] + x12 * coeff
     ly = p1[1] + y12 * coeff
-    return (2*lx-pin[0], 2*ly-pin[1])
+    return 2*lx-pin[0], 2*ly-pin[1]
 
 pygame.init()
 window = pygame.display.set_mode(IMAGE_SIZE)
@@ -81,6 +88,12 @@ for sample_idx in range(NUM_OUTPUT_SAMPLES):
         p = [scale(image_center, item, scale_value) for item in p]
         p_place = scale(image_center, p_place, scale_value)
         p_pick = scale(image_center, p_pick, scale_value)
+
+    if RANDOM_MOVE_MAX != 0:
+        value = random.uniform(-RANDOM_MOVE_MAX, RANDOM_MOVE_MAX)
+        p = [move(item, value) for item in p]
+        p_place = move(p_place, value)
+        p_pick = move(p_pick, value)
 
     window.fill((0, 0, 0))
     
