@@ -23,3 +23,21 @@ Output:
 - `NUM_OUTPUT_SAMPLES` images (grayscale emulating simplified 2.5D heights, rectangular fabric
 with a single fold that always starts from adjacent sides).
 - A single `labels.txt` file in plain text where each line is `image name.png, pick x, pick y, place x, place y`.
+
+## cloth2d_vis.py
+
+Dependency:
+
+- `pygame`
+
+Usage:
+
+```bash
+cloth2d_vis.py image_name pick_x pick_y place_x place_y
+```
+
+Example:
+
+```bash
+cloth2d_vis.py dataset/image1.png 1 2 3 4
+```
