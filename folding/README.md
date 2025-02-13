@@ -2,6 +2,10 @@
 
 ![assets/image1.png](assets/image1.png)
 
+## ALMA WP7 Folding @ https://zenodo.org/records/14864393
+
+- <https://doi.org/10.5281/zenodo.14864392>
+
 ## cloth2d.py
 
 Dependency:
