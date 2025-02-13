@@ -1,12 +1,12 @@
 # alma-dataset/folding
 
-![assets/image1.png](assets/image1.png)
-
 ## ALMA WP7 Folding @ https://zenodo.org/records/14864393
 
 - <https://doi.org/10.5281/zenodo.14864392>
 
 ## cloth2d.py
+
+![assets/image1.png](assets/image1.png)
 
 Dependency:
 
@@ -29,6 +29,8 @@ with a single fold that always starts from adjacent sides).
 - A single `labels.txt` file in plain text where each line is `image name.png, pick x, pick y, place x, place y`.
 
 ## cloth2d_vis.py
+
+![assets/image2_vis.png](assets/image2_vis.png)
 
 Dependency:
 
